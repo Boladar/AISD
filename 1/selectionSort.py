@@ -1,10 +1,8 @@
-def insertionSort(tablica):
-    tymczasowa = 0
-    for i in range(len(tablica)):
-        tymczasowa = tablica[i]
-        j=i-1
-        while j>=0 and tablica[j]>tymczasowa:
-            tablica[j+1]=tablica[j]
-            j-=1
-        tablica[j+1]=tymczasowa
+def selectionSort(tablica):
+    for i in range(len(tablica)-1):
+        for j in range(i,len(tablica)):
+            if tablica[i]>tablica[j]:
+                tymczasowa = tablica[i]
+                tablica[i] = tablica[j]
+                tablica[j] = tymczasowa
     return tablica
