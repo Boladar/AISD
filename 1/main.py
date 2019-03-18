@@ -25,7 +25,7 @@ for f in FUNC:
             data = d(s)
             print("sort: {}, data: {} size: {}".format(f.__name__,d.__name__,s))
             start = time.time()
-            f(data)
+            f(data.copy())
             end = time.time()
             times.append(end-start)
 
