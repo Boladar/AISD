@@ -7,7 +7,7 @@ from insertionSort import insertionSort
 from selectionSort import selectionSort
 from shellSort import shellSort
 
-TEST_FUNC = [heapSort,insertionSort,selectionSort]
+TEST_FUNC = [shellSort,heapSort,insertionSort,selectionSort]
 
 class TestSort(unittest.TestCase):
     def test_sorts(self):
