@@ -9,13 +9,18 @@ from heapSort import heapSort
 from insertionSort import insertionSort
 from selectionSort import selectionSort
 from shellSort import shellSort
+from quickSort import quicksort_right, quicksort_random
 
 #import data types
 from generate import *
 
 TEST_SIZES = [1000,5000,10000,15000,20000]
-FUNC = [heapSort,insertionSort]
-DATA_TYPES = [up,down,a,v,stale,randomised]
+FUNC = [quicksort_random,quicksort_right]
+DATA_TYPES = [up,down,a,v,randomised]
+
+import sys
+
+sys.setrecursionlimit(3000)
 
 for f in FUNC:
     func_traces = []

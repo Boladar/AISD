@@ -8,3 +8,4 @@ def insertionSort(tablica):
             j-=1
         tablica[j+1]=tymczasowa
     return tablica
+

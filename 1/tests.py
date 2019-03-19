@@ -6,9 +6,9 @@ from heapSort import heapSort
 from insertionSort import insertionSort
 from selectionSort import selectionSort
 from shellSort import shellSort
-from quickSort import quickSort_left
+from quickSort import quicksort_right, quicksort_random
 
-TEST_FUNC = [shellSort,heapSort,insertionSort,selectionSort]
+TEST_FUNC = [quicksort_right,quicksort_random,heapSort,insertionSort,selectionSort,shellSort]
 
 class TestSort(unittest.TestCase):
     def test_sorts(self):
