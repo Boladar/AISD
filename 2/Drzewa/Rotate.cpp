@@ -1,4 +1,5 @@
 #include <iostream>
+
 Node *rightRotate(Node *y)
 {
     Node *x = y->left;
@@ -7,9 +8,9 @@ Node *rightRotate(Node *y)
     x->right = y;
     y->left = T2;
     
-    y->height = max(height(y->left),
+    y->height = std::max(height(y->left),
                     height(y->right)) + 1;
-    x->height = max(height(x->left),
+    x->height = std::max(height(x->left),
                     height(x->right)) + 1;
     return x;
 }
@@ -22,9 +23,9 @@ Node *leftRotate(Node *x)
     y->left = x;
     x->right = T2;
     
-    x->height = max(height(x->left),
+    x->height = std::max(height(x->left),
                     height(x->right)) + 1;
-    y->height = max(height(y->left),
+    y->height = std::max(height(y->left),
                     height(y->right)) + 1;
     return y;
 }
