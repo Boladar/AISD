@@ -10,6 +10,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
+#include <cstdlib>
+#include <fstream>
 using namespace std;
 
 void GenerujTablice(int tab[],int n)
@@ -257,22 +259,32 @@ bool PathToNode(Node * n,int value,vector<int>&path)
 int main()
 {
     Node *root = NULL;
-    for (int n=10000;n<100000;n+=10000)
+    double czas;
+    clock_t start,stop;
+    fstream plik;
+    for (int n=10000;n<=100000;n+=10000)
     {
         int * arr= new int [n] ;
         GenerujTablice(arr,n);
-        //czas
+        plik.open("wynikiinsert.txt",ios::out | ios::app);
+        start = clock();
         for (int i=0;i<n;i++)
+        {
             root = insert(root, arr[i]);
-        //czas
+        }
+        stop = clock();
+        czas = (double)(stop-start)/CLOCKS_PER_SEC;
+        plik << n << "  " << czas << endl;
+        plik.close();
         delete[] arr;
         PreOrder(root);
         cout << "\n";
         InOrder(root);
         cout << "\n";
         vector<int> path;
-        //czas
-        for(int j=0;j<10;j++)
+        plik.open("wynikisearch.txt",ios::out | ios::app);
+        start = clock();
+        for(int j=0;j<1000;j++)
             {
                 bool ok=PathToNode(root,rand()%n+1,path);
                 if (ok==true)
@@ -285,10 +297,17 @@ int main()
                     cout << path[path.size()-1] << "\n";
                 }
             }
-        //czas
-        //czas
+        czas = (double)(stop-start)/CLOCKS_PER_SEC;
+        plik << n << "  " << czas << endl;
+        stop = clock();
+        plik.close();
+        plik.open("wynikidelete.txt",ios::out | ios::app);
+        start = clock();
         DeleteTree(root);
-        //czas
+        czas = (double)(stop-start)/CLOCKS_PER_SEC;
+        plik << n << "  " << czas << endl;
+        stop = clock();
+        plik.close();
         root = NULL;
     }
     return 0;
