@@ -3,16 +3,17 @@ import random
 def calculate_saturation_rate(n):
     return int((n*(n-1)/2)/2)
 
+def generate_graph_seed(n):
+    seed = [i for i in range(1,int(n*(n-1)/2))]
+    random.shuffle(seed)
+    size = calculate_saturation_rate(n)
+    seed = seed[:size]
+    seed.sort()
+    return seed
+
 def generate_adjacency_graph(n):
     graph = []
-
-    random_list = [i for i in range(1,int(n*(n-1)/2))]
-    random.shuffle(random_list)
-    size = calculate_saturation_rate(n)
-    random_list = random_list[:size]
-    random_list.sort()
-
-    print (random_list)
+    seed = generate_graph_seed(n)
 
     random_index = 0
     field_number = 0
@@ -22,8 +23,8 @@ def generate_adjacency_graph(n):
             if  i == j:
                 row.append(0)   #diagonal
             elif j > i: # upper triangle
-                if len(random_list) > random_index:
-                    if random_list[random_index] == field_number:
+                if len(seed) > random_index:
+                    if seed[random_index] == field_number:
                         row.append(1)
                         random_index += 1
                         

@@ -6,5 +6,6 @@ def print_adjacency_graph(n,graph):
             print(graph[i][j],end = " ")
         print("")
 
-print_adjacency_graph(5,generate.generate_adjacency_graph(5))
-print("expected saturation rate: {}".format(generate.calculate_saturation_rate(5)))
+adjacency_matrix = generate.generate_adjacency_graph(5)
+print_adjacency_graph(5,adjacency_matrix)
+print(generate.generate_edge_list(5,adjacency_matrix))
