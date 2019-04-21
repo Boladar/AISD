@@ -11,7 +11,7 @@ def generate_graph_seed(n):
     seed.sort()
     return seed
 
-def generate_adjacency_graph(n):
+def generate_adjacency_matrix(n):
     graph = []
     seed = generate_graph_seed(n)
 
@@ -51,4 +51,11 @@ def generate_edge_list(n,adjacency_matrix):
     return edge_list
 
 def generate_list_of_next_elements(n,adjacency_matrix):
-    pass
+    next_dictionary = {}
+    for i in range(n):
+        next_dictionary[i] = []
+        for j in range(n):
+            if adjacency_matrix[i][j]:
+                next_dictionary[i].append(j)
+
+    return next_dictionary
