@@ -96,7 +96,7 @@ Node *rightRotate(Node *y)
     return x;
 }
 
-Node *leftRotate(Node *x)
+Node *left(Node *x)
 {
     Node *y = x->right;
     Node *T2 = y->left;
@@ -128,7 +128,7 @@ Node* insert(Node* node, int key)
     if (balance > 1 && key < node->left->key)
         return rightRotate(node);
     if (balance < -1 && key > node->right->key)
-        return leftRotate(node);
+        return left(node);
     if (balance > 1 && key > node->left->key)
     {
         node->left = leftRotate(node->left);

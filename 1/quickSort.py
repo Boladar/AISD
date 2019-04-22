@@ -3,7 +3,7 @@ import random
 def quicksort_right(table):
     def partition(table,left, right):
         x = table[right]
-        i = left - 1
+        i = left-1
         for j in range(left,right):
             if(table[j] <= x):
                 i += 1
