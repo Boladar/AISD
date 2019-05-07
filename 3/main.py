@@ -28,7 +28,7 @@ def test_func(func,data,size):
 
     return end-start
 
-TEST_SIZES = [1000,2000,3000,4000,5000]
+TEST_SIZES = [500,1000,1500,2000,2500,3000,3500,4000,4500,5000]
 
 dfs_func_traces = []
 bfs_func_traces = []
