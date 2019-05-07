@@ -47,7 +47,7 @@ def generate_edge_list(n,adjacency_matrix):
     for i in range(n):
         for j in range(n):
             if adjacency_matrix[i][j]:
-                edge_list.append([i,j])
+                edge_list.append(Edge(i,j))
     return edge_list
 
 def generate_list_of_next_elements(n,adjacency_matrix):
@@ -59,3 +59,27 @@ def generate_list_of_next_elements(n,adjacency_matrix):
                 next_dictionary[i].append(j)
 
     return next_dictionary
+
+class Edge:
+    def __init__(self,l,r):
+        self.l = l
+        self.r = r
+
+    def __hash__(self):
+        return hash((self.l,self.r))
+
+    def __eq__(self,other):
+        return self.l == other.l and self.r == other.r
+
+    def __str__(self):
+        return "[{},{}]".format(self.l,self.r)
+
+    def __repr__(self):
+        return "[{},{}]".format(self.l,self.r)
+
+    def __getitem__(self,index):
+        if index == 0:
+            return self.l
+        else:
+            return self.r
+    

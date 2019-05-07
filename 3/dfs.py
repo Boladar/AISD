@@ -1,3 +1,5 @@
+from generate import Edge
+
 def dfs_adjacency_matrix(n,matrix):
 
     visited = [False for i in range(n)]
@@ -22,22 +24,27 @@ def dfs_adjacency_matrix(n,matrix):
 
 def dfs_edge_list(n,edge_list):
 
-    visited = [False for i in range(n)]
+    edge_set = set()
+    for edge in edge_list:
+        edge_set.add(edge)
+
+    visited = set()
     sorted_list = []
 
     def visit_node(node):
-        #print("true node {}".format(node))
-        visited[node] = True
+        #print("true node {}".format(str(node)))
+        visited.add(node)
         
-        for i in range(len(edge_list)):
-            if [node,i] in edge_list and not visited[i]:
+        for i in range(n):
+            target = Edge(node,i)
+            if target in edge_set and i not in visited:
                 visit_node(i)
         sorted_list.insert(0,node)
 
     def dfs(n,edge_list):
         for i in range(n):
             edge = edge_list[i]
-            if not visited[edge[0]]:
+            if edge[0] not in visited:
                 visit_node(edge[0])
 
     dfs(n,edge_list)
