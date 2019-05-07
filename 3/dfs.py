@@ -35,7 +35,7 @@ def dfs_edge_list(n,edge_list):
         sorted_list.insert(0,node)
 
     def dfs(n,edge_list):
-        for i in range(len(edge_list)):
+        for i in range(n):
             edge = edge_list[i]
             if not visited[edge[0]]:
                 visit_node(edge[0])
