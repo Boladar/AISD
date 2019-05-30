@@ -1,16 +1,5 @@
 from itertools import combinations
 
-n = 6
-C = 8
-
-p = [1,10,5,6,2,5]
-w = [1,4,3,2,1,2]
-all = []
-
-for i in range(n):
-    all.append((p[i],w[i]))
-
-
 def dynamic_knapsack (C,n,all):
     dynamic_array = []
     x = []
