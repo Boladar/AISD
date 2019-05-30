@@ -1,0 +1,19 @@
+import create
+import read
+import Knapsack
+
+
+n=200
+C=200
+pmax=17
+wmax=18
+
+create.create(C,n,pmax,wmax)
+items = read.read()
+if items == False :
+    print("File do not exists")
+else:
+    dynamic = Knapsack.dynamic_knapsack(C,n,items)
+    print(dynamic)
+    bruce_force = Knapsack.bruce_force_knapsack(C,n,items)
+    print(bruce_force)
