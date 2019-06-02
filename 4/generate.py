@@ -49,6 +49,10 @@ def generate_graph(size,saturation):
         picked_node = random.randint(0,size-1)
         picked_node_next = next_dictionary[picked_node]
 
+        while next_dictionary[picked_node_next[0]] in next_dictionary[picked_node_next[1]]:
+            picked_node = random.randint(0,size-1)
+            picked_node_next = next_dictionary[picked_node]
+
         add_edge(next_dictionary,picked_node_next[0],picked_node_next[1])
 
         picked_supplemental_node = picked_node
