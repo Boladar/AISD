@@ -15,7 +15,7 @@ hamilton_times = []
 euler_times = []
 
 def test_func(func,data,size):
-    print("func: {}, size: {}".format(func.__name__,s))
+    print("func: {}, size: {}".format(func.__name__,size))
     start = time.time()
     func(deepcopy(data))
     end = time.time()
