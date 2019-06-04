@@ -60,9 +60,6 @@ def generate_graph(size,saturation):
     print(saturation)
     while saturation - current_saturation > 2:
 
-        print_list_of_next_elements(next_dictionary)
-        print("#######################################")
-
         picked_node = random.randint(0,size-1)
         picked_node_next = next_dictionary[picked_node]
 
@@ -83,16 +80,9 @@ def generate_graph(size,saturation):
                 picked_supplemental_node in next_dictionary[picked_node_next[1]]):
             picked_supplemental_node = random.randint(0,size-1)
 
-        print("picked node " + str(picked_node))
-        print("picked supplemental " + str(picked_supplemental_node))
-
         add_edge(next_dictionary,picked_supplemental_node,picked_node_next[0])
         add_edge(next_dictionary,picked_supplemental_node,picked_node_next[1])
 
         current_saturation += 3
 
-        
-
-
-    print_list_of_next_elements(next_dictionary)
     return next_dictionary
