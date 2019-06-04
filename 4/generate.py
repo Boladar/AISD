@@ -24,6 +24,19 @@ def add_edge(next_dictionary,current_node,next_node):
     next_dictionary[current_node].append(next_node)
     next_dictionary[next_node].append(current_node)
 
+def pick_not_connected_next_nodes(next_dictionary,node):
+    next_elements = next_dictionary[node]
+    for i in range(len(next_elements)):
+        previous = next_elements[i]
+        for j in range(i,len(next_elements)):
+            next = next_elements[j]
+
+            if next not in next_dictionary[previous]:
+                return [previous,next]
+
+    return None
+            
+    
 def generate_graph(size,saturation):
     next_dictionary = {}
     visited = []
@@ -46,23 +59,39 @@ def generate_graph(size,saturation):
     saturation = calculate_saturation_rate(size,saturation)
     print(saturation)
     while saturation - current_saturation > 2:
+
+        print_list_of_next_elements(next_dictionary)
+        print("#######################################")
+
         picked_node = random.randint(0,size-1)
         picked_node_next = next_dictionary[picked_node]
 
         while next_dictionary[picked_node_next[0]] in next_dictionary[picked_node_next[1]]:
             picked_node = random.randint(0,size-1)
-            picked_node_next = next_dictionary[picked_node]
+            picked_node_next = pick_not_connected_next_nodes(next_dictionary,picked_node)
+
+            if picked_node_next is None:
+                continue
 
         add_edge(next_dictionary,picked_node_next[0],picked_node_next[1])
 
+
+
         picked_supplemental_node = picked_node
-        while picked_supplemental_node == picked_node or picked_supplemental_node in picked_node_next:
+        while (picked_supplemental_node == picked_node or
+                picked_supplemental_node in next_dictionary[picked_node_next[0]] or
+                picked_supplemental_node in next_dictionary[picked_node_next[1]]):
             picked_supplemental_node = random.randint(0,size-1)
+
+        print("picked node " + str(picked_node))
+        print("picked supplemental " + str(picked_supplemental_node))
 
         add_edge(next_dictionary,picked_supplemental_node,picked_node_next[0])
         add_edge(next_dictionary,picked_supplemental_node,picked_node_next[1])
 
         current_saturation += 3
+
+        
 
 
     print_list_of_next_elements(next_dictionary)
