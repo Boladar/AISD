@@ -21,6 +21,13 @@ def pick_node(visited,current_node,size):
     return choice
 
 def add_edge(next_dictionary,current_node,next_node):
+
+    if current_node == next_node:
+        raise Exception("trying to add edge to itself {}".format(current_node))
+
+    if next_node in next_dictionary[current_node]:
+        raise Exception("trying to add existing edge once more {} ->{} ".format(current_node,next_node))
+
     next_dictionary[current_node].append(next_node)
     next_dictionary[next_node].append(current_node)
 
@@ -31,7 +38,7 @@ def pick_not_connected_next_nodes(next_dictionary,node):
         for j in range(i,len(next_elements)):
             next = next_elements[j]
 
-            if next not in next_dictionary[previous]:
+            if next not in next_dictionary[previous] and previous != next:
                 return [previous,next]
 
     return None
@@ -57,29 +64,37 @@ def generate_graph(size,saturation):
 
     current_saturation = size
     saturation = calculate_saturation_rate(size,saturation)
+    not_viable_nodes = []
     print(saturation)
     while saturation - current_saturation > 2:
 
         picked_node = random.randint(0,size-1)
         picked_node_next = next_dictionary[picked_node]
-
-        while next_dictionary[picked_node_next[0]] in next_dictionary[picked_node_next[1]]:
+        picked_nodes = False
+        while not picked_nodes:
+            #print(next_dictionary[picked_node_next[0]])
             picked_node = random.randint(0,size-1)
+
+            if picked_node in not_viable_nodes:
+                continue
+
             picked_node_next = pick_not_connected_next_nodes(next_dictionary,picked_node)
 
             if picked_node_next is None:
+                not_viable_nodes.append(picked_node)
                 continue
+            else:
+                if picked_node_next[0] not in next_dictionary[picked_node_next[1]]:
+                    picked_nodes = True
 
         add_edge(next_dictionary,picked_node_next[0],picked_node_next[1])
-
-
 
         picked_supplemental_node = picked_node
         while (picked_supplemental_node == picked_node or
                 picked_supplemental_node in next_dictionary[picked_node_next[0]] or
                 picked_supplemental_node in next_dictionary[picked_node_next[1]]):
             picked_supplemental_node = random.randint(0,size-1)
-
+     
         add_edge(next_dictionary,picked_supplemental_node,picked_node_next[0])
         add_edge(next_dictionary,picked_supplemental_node,picked_node_next[1])
 
