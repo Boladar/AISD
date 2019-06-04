@@ -57,5 +57,5 @@ def euler(next_dictionary):
 
     visited.append(current_node)
 
-    for i in range(len(visited)):
-        print(visited.pop())
+    #for i in range(len(visited)):
+    #    print(visited.pop())

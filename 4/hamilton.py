@@ -1,12 +1,14 @@
+import random
 
 def hamilton(next_dictionary):
     visited = [] 
     omit = []
     hamiltonFound = False
-    starting_node = 0
+    starting_node = random.randint(0,len(next_dictionary)-1)
     current_node = starting_node
 
     def go_back(current_node):
+        print(visited)
         omit.append(current_node)
         previous = visited.pop()
         return previous
@@ -14,7 +16,6 @@ def hamilton(next_dictionary):
     def visit_node(node):
         #print("visit {}".format(node))
         visited.append(node)
-
         return node
 
     def check_for_starting_node(previous):
@@ -37,6 +38,13 @@ def hamilton(next_dictionary):
 
         return None
 
+    def find_next_omitted(previous):
+        for node in next_dictionary[previous]:
+            if node not in visited and node in omit:
+                return node
+
+        return None
+
     visit_node(current_node)
     while not hamiltonFound:
         next = find_next(current_node)
@@ -44,12 +52,16 @@ def hamilton(next_dictionary):
         if next is not None:
             current_node = visit_node(next)
         else:
-            if check_for_starting_node(current_node):
+            if check_for_starting_node(current_node) and len(visited) == len(next_dictionary):
                 visit_node(starting_node)
                 hamiltonFound = True
             else:
-                print("go back")
-                current_node = go_back(current_node)
+                if len(visited) == len(next_dictionary):
+                    print("No hamilton, every node has been visited")
+                    break
+                else:
+                    return hamilton(next_dictionary)
 
-    for i in range(len(visited)):
-        print(visited.pop())
+    #if hamiltonFound:
+    #    for i in range(len(visited)):
+    #        print(visited.pop())
