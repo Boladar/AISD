@@ -1,7 +1,7 @@
 import random
 
-def print_list_of_next_elements(n,next_dictionary):
-    for i in range(n):
+def print_list_of_next_elements(next_dictionary):
+    for i in range(len(next_dictionary)):
         print("{} : {}".format(i,next_dictionary[i]))
 
 def print_graph(n,graph):
@@ -65,4 +65,5 @@ def generate_graph(size,saturation):
         current_saturation += 3
 
 
-    print_list_of_next_elements(size,next_dictionary)
+    print_list_of_next_elements(next_dictionary)
+    return next_dictionary

@@ -1,3 +1,5 @@
 import generate
+import euler
 
-generate.generate_graph(12,0.3)
+next_dictionary = generate.generate_graph(10,0.3)
+euler.euler(next_dictionary)
