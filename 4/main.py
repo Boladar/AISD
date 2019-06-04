@@ -24,20 +24,27 @@ def test_func(func,data,size):
 
 for s in SATURATIONS:
     for ts in TEST_SIZES:
-        next_dictionary = None
-        while next_dictionary is None:
-            next_dictionary = generate.generate_graph(ts,s)
+        sumH = 0
+        sumE = 0
+        for i in range(100):
+            next_dictionary = None
+            while next_dictionary is None:
+                next_dictionary = generate.generate_graph(ts,s)
+
+            sumE += test_func(euler,next_dictionary,ts)
+            sumH += test_func(hamilton,next_dictionary,ts)
         
-        euler_times.append(test_func(euler,next_dictionary,ts))
-        hamilton_times.append(test_func(hamilton,next_dictionary,ts))
+        hamilton_times.append(sumH/100)
+        euler_times.append(sumE/100)
 
     euler_traces.append(go.Scatter(x = TEST_SIZES,y = euler_times,mode = 'lines', name="Euler {}%".format(s*100)))
     hamiltonA_traces.append(go.Scatter(x = TEST_SIZES,y = hamilton_times,mode = 'lines', name="Hamilton_A {}%".format(s*100)))
 
     euler_times.clear()
     hamilton_times.clear()
-
+'''
 hamilton_b_times = []
+TEST_SIZES = [10,11,12,13,14,15,16,17,18,19]
 for ts in TEST_SIZES:
     next_dictionary = None
     while next_dictionary is None:
@@ -51,7 +58,7 @@ for ts in TEST_SIZES:
     hamilton_b_times.append(test_func(hamilton,next_dictionary,ts))
 
 hamiltonB_traces.append(go.Scatter(x = TEST_SIZES,y = hamilton_b_times,mode = 'lines', name="Hamilton_B 50%"))
-
+'''
 plotly.offline.plot(euler_traces,filename="charts/{}.html".format("euler"))
 plotly.offline.plot(hamiltonA_traces,filename="charts/{}.html".format("hamilton_a"))
-plotly.offline.plot(hamiltonB_traces,filename="charts/{}.html".format("hamilton_b"))
+#plotly.offline.plot(hamiltonB_traces,filename="charts/{}.html".format("hamilton_b"))
