@@ -63,14 +63,14 @@ def generate_graph(size,saturation):
 
 
     current_saturation = size
-    saturation = calculate_saturation_rate(size,saturation)
+    wanted_edge_saturation = calculate_saturation_rate(size,saturation)
     not_viable_nodes = []
-    print(saturation)
-    while saturation - current_saturation > 2:
+    while wanted_edge_saturation - current_saturation > 2:
 
         picked_node = random.randint(0,size-1)
         picked_node_next = next_dictionary[picked_node]
         picked_nodes = False
+        not_viable_nodes.clear()
         while not picked_nodes:
             #print(next_dictionary[picked_node_next[0]])
             picked_node = random.randint(0,size-1)
@@ -89,12 +89,17 @@ def generate_graph(size,saturation):
 
         add_edge(next_dictionary,picked_node_next[0],picked_node_next[1])
 
-        picked_supplemental_node = picked_node
-        while (picked_supplemental_node == picked_node or
-                picked_supplemental_node in next_dictionary[picked_node_next[0]] or
-                picked_supplemental_node in next_dictionary[picked_node_next[1]]):
-            picked_supplemental_node = random.randint(0,size-1)
-     
+        picked_supplemental_node = None
+        for i in range(size):
+            potential_supplemental_node = i
+            if (potential_supplemental_node != picked_node and
+                potential_supplemental_node not in next_dictionary[picked_node_next[0]] and
+                potential_supplemental_node not in next_dictionary[picked_node_next[1]]):
+                picked_supplemental_node = potential_supplemental_node
+
+        if picked_supplemental_node is None:
+            return None
+
         add_edge(next_dictionary,picked_supplemental_node,picked_node_next[0])
         add_edge(next_dictionary,picked_supplemental_node,picked_node_next[1])
 

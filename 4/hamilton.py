@@ -48,6 +48,7 @@ def hamilton(next_dictionary):
                 visit_node(starting_node)
                 hamiltonFound = True
             else:
+                print("go back")
                 current_node = go_back(current_node)
 
     for i in range(len(visited)):
