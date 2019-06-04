@@ -34,6 +34,8 @@ for s in SATURATIONS:
     euler_traces.append(go.Scatter(x = TEST_SIZES,y = euler_times,mode = 'lines', name="Euler {}%".format(s*100)))
     hamiltonA_traces.append(go.Scatter(x = TEST_SIZES,y = hamilton_times,mode = 'lines', name="Hamilton_A {}%".format(s*100)))
 
+    euler_times.clear()
+    hamilton_times.clear()
 
 hamilton_b_times = []
 for ts in TEST_SIZES:
@@ -48,7 +50,7 @@ for ts in TEST_SIZES:
 
     hamilton_b_times.append(test_func(hamilton,next_dictionary,ts))
 
-    hamiltonB_traces.append(go.Scatter(x = TEST_SIZES,y = hamilton_b_times,mode = 'lines', name="Hamilton_B 50%"))
+hamiltonB_traces.append(go.Scatter(x = TEST_SIZES,y = hamilton_b_times,mode = 'lines', name="Hamilton_B 50%"))
 
 plotly.offline.plot(euler_traces,filename="charts/{}.html".format("euler"))
 plotly.offline.plot(hamiltonA_traces,filename="charts/{}.html".format("hamilton_a"))
